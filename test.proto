@@ -1,0 +1,14 @@
+syntax = "proto3";
+package grpc_test;
+
+message input {
+	int32 number = 1;
+}
+
+message output {
+	string status = 1;
+}
+
+service test_grpc {
+	rpc test_function(input) returns (output) {}
+}

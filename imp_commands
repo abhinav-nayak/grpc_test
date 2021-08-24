@@ -1,0 +1,22 @@
+To generate server and client interfaces:
+-------------------------------------------------
+
+python3 -m grpc_tools.protoc \
+	   -I ./code \
+          --python_out=./code/generated_automatically \
+          --grpc_python_out=./code/generated_automatically \
+          ./code/test.proto
+          
+
+When you run this one command however, you will end up with some broken imports in these generated files. There are multiple raised issues in grpc and protobuf repositories and the easiest solution is to just fix those imports with sed:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+sed -i -E 's/^import.*_pb2/from . \0/' ./code/generated_automatically/*.py
+
+
+Mandatory, else it gives Attribute Error while running the server code:
+pip install --upgrade protobuf
+
+
+
+
+
